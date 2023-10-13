@@ -11,6 +11,7 @@ import jinja2
 
 from .github import create_release, get_releases, update_release
 from .gitinfo import get_github_repos
+from .linkcheck import check_markdown_links
 from .scriv import Scriv
 from .shell import run_simple_command
 from .util import Version
@@ -26,6 +27,11 @@ logger = logging.getLogger(__name__)
     help="Use all of the changelog entries.",
 )
 @click.option(
+    "--check-links",
+    is_flag=True,
+    help="Check that links are valid (EXPERIMENTAL).",
+)
+@click.option(
     "--dry-run",
     is_flag=True,
     help="Don't post to GitHub, just show what would be done.",
@@ -37,6 +43,7 @@ logger = logging.getLogger(__name__)
 @click_log.simple_verbosity_option()
 def github_release(
     all_entries: bool,
+    check_links: bool,
     dry_run: bool,
     repo: Optional[str] = None,
 ) -> None:
@@ -99,6 +106,9 @@ def github_release(
             config=scriv.config,
         )
         release_data["body"] = md
+
+        if check_links:
+            check_markdown_links(md)
 
         if version in releases:
             release = releases[version]

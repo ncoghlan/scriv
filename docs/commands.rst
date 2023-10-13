@@ -188,12 +188,13 @@ scriv github-release
 
     Options:
       --all                Use all of the changelog entries.
+      --check-links        Check that links are valid (EXPERIMENTAL).
       --dry-run            Don't post to GitHub, just show what would be done.
       --repo TEXT          The GitHub repo (owner/reponame) to create the
                            release in.
       -v, --verbosity LVL  Either CRITICAL, ERROR, WARNING, INFO or DEBUG
       --help               Show this message and exit.
-.. [[[end]]] (checksum: eaf0f9e06575bf06499354b22928696b)
+.. [[[end]]] (checksum: 8c9e189a0429de474313b13afc36612f)
 
 The ``github-release`` command reads the changelog file, parses it into
 entries, and then creates or updates GitHub releases to match.  Only the most
